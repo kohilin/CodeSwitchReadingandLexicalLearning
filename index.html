@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)file:///home/ryosuke-k/Documents/bootstrap/pracs/LingarBrowser/index.html -->
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Code Switch Reading and Lexical Learning</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="../bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/CodeSwitchReading.css">
+
+</head>
+<script>
+    jump = function() {
+        location.href = "CodeSwitchReading.html" + $('#book').val() + $('#lang').val() + $('#randomness').val() + $('#ratio').val();
+
+    }
+</script>
+
+<body>
+    <h1>Code-Switch Reading and Lexical Learning</h1>
+    <h2>説明</h2>
+    <ul>
+      <li>
+        <a href="https://en.wikipedia.org/wiki/Code-switching">Code-swithing</a>とは、複数の言語を入れ替えながら読んだり、話したり、聞いたりすることです。
+      </li>
+      <li>
+        Code-Switch Readingはその通りで、文章の中のいくつかの単語が、他の言語に入れ替わっています。
+      </li>
+      <li>
+        Lexical Learningもその通りで、単語を習得することを意味しています。
+      </li>
+      <li>
+        このページが目指しているものは、Code-Sweitch Readingによって、外国語を習得しよう。ということです。
+      </li>
+      <li>
+        実は、読むときに複数言語をswitchしながら読むと、語彙の習得が進むと言われています（<a href="http://llt.msu.edu/vol11num3/cobb/" target="_blank">Cobb,2007</a>）。
+      </li>
+      <li>
+        未知の単語に出会った時、周囲の単語から予測する機能が働きます。その予測によって語彙の習得が進むのです。
+      </li>
+      <li>
+        一般に、予測するということが学習にとって重要な要素であるといわれており、それは脳活動との関連からも確認されています（<a href="https://www.ncbi.nlm.nih.gov/pubmed/23125559" target="_blank">Borovsky, et al., 2012</a>）。
+      </li>
+    </ul>
+    <br />
+<center>
+  <img border="0" src="./data/CSRLR.png" width="1000" height="250" alt="イラスト1">
+</center>
+<br />
+
+    <h2>使い方</h2>
+    <ul>
+      <li>
+        使い方は単純です。
+      </li>
+      <li>
+        それぞれのプルダウンメニューから好きな設定を選び、STARTを押してください。
+      </li>
+      <li>
+        現在実装済みの言語は、英語、中国語、ロシア語です。
+      </li>
+      <li>
+        ランダムスイッチングとは、スイッチする単語をランダムに選ぶことです。オリジナルでは、人手で予測できると判断したものをスイッチしていますが、ランダムの場合、予測不可能なものがスイッチされる場合もあります。
+      </li>
+      <li>
+        ランダムスイッチングを選択した際に、スイッチング率で何%の単語をスイッチするかを決定できます。
+      </li>
+      <li>
+        スイッチされた単語は青色で表示され、マウスを上に置くと元の日本語の単語が吹き出しで出てきます。
+      </li>
+      <li>
+        クリックすると、スイッチした外国語の単語を辞書で引いたページに飛びます。
+      </li>
+      <li>
+        隣の人型のアイコンをクリックすると、Speech Synthesis APIによる単語の読み上げが聞けます。
+      </li>
+      <li>
+        なお、単語の分割は<a href="http://taku910.github.io/mecab/", target="_blank">mecab</a>、対訳辞書は<a href="https://translate.google.co.jp/?hl=ja", target="_blank">google翻訳</a>を用いて全自動化しており、誤りが含まれます（特に対訳辞書）。ご了承ください。
+      </li>
+    </ul>
+
+<br />
+    <div id="list"></div>
+    <form id=select>
+        <table border=1>
+            <tr>
+                <td>
+                    <span class="choice">作品</span>
+                </td>
+                <td>
+                    <select id=book>
+                      <option value="?kumono_ito?蜘蛛の糸?芥川龍之介">蜘蛛の糸　芥川龍之介</option>
+                      <option value="?hashire_merosu?走れメロス?太宰治">走れメロス　太宰治</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="choice">勉強したい言語</span>
+
+                </td>
+                <td>
+                    <select id=lang>
+                <option value ="?4">english</option>
+                <option value ="?5">chinese</option>
+                <option value ="?6">russian</option>
+              </select>
+
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <span class="choice">ランダムスイッチング</span>
+
+                </td>
+                <td>
+                    <select id=randomness>
+      <option value ="?0">original</option>
+      <option value ="?1">random</option>
+    </select>
+
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+
+                    <span class="choice">スイッチング率（ランダム次のみ有効）</span>
+
+                </td>
+
+                <td>
+                    <select id=ratio>
+
+    <option value ="?0.1">10</option>
+    <option value ="?0.2">20</option>
+    <option value ="?0.3">30</option>
+    <option value ="?0.4">40</option>
+    <option value ="?0.5">50</option>
+    <option value ="?0.6">60</option>
+    <option value ="?0.7">70</option>
+
+</select>
+                </td>
+
+            </tr>
+        </table>
+        <br />
+        <br />
+
+        <input type="button" size="0" value="START" id="start" onclick="jump()" />
+
+    </form>
+
+<h2>未実装</h2>
+<ul>
+  <li>
+    文節区切りの対訳辞書
+  </li>
+  <li>
+    確率モデル（言語モデル）による変換候補の自動決定
+  </li>
+</ul>
+
+
+    <!-- <script>
+// var list = [['kumono_ito',"蜘蛛の糸","芥川龍之介"]];
+// $(function(){
+//   for(book of list){
+//     $('#')
+//     var a_elem = document.createElement('a')
+//     a_elem.href = "CodeSwitchReading.html?" + book.join("?") + "?" + $('#ratio').val() + "?" + $('#lang').val();
+//     a_elem.innerHTML = book[1];
+//     $('#main').append(a_elem);
+//   }
+// })
+</script> -->
+</body>
+
+</html>

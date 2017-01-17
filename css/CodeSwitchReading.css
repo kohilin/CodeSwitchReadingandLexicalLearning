@@ -1,0 +1,45 @@
+html {
+    margin-left: 30px;
+}
+
+select{
+  font-size: 150%;
+}
+
+
+input{
+  font-size: 200%;
+}
+
+table{
+  border: dased;
+  font-size: 150%;
+  align: center;
+}
+
+.choice{
+  font-size: 150%;
+  margin-right: 20px;
+}
+
+.title{
+  font-size: 150%;
+  text-align: center;
+}
+
+.author{
+  font-size: 130%;
+  text-align: center;
+}
+
+
+.replaced{
+  color: cornflowerblue;
+  font-size: 140%
+}
+
+.sentence{
+  font-size: 150%;
+  line-height: 400%;
+}
+});
